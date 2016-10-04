@@ -20,7 +20,7 @@ The Apache docroot is also a volume which is binded to `../docroot`.
     ├── wp-config-sample.php
     ├── wp-content
     ├── ...
-    ├── [And other WorPress files.]
+    ├── [And other WordPress files.]
 ```
 
 ## Usage
