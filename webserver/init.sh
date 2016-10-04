@@ -22,6 +22,17 @@ then
     LINE_REPLACEMENT=$(echo $LINE | sed "s/$PASSPHRASE_PLACEHOLDER/$SALT/g")
     sed -i "s/$LINE/$LINE_REPLACEMENT/g" wp-config.php
   done
+
+  # Create 'uploads' directory.
+  mkdir -m 777 wp-content/uploads
+  chown --reference=wp-config.php wp-content/uploads
+
+  # Create .gitignore file
+  cat <<EOT >> .gitignore
+wp-config.php
+wp-content/uploads
+EOT
+  chown --reference=wp-config.php .gitignore
 fi
 
 # Start Apache.
