@@ -3,7 +3,7 @@
 if [ ! -f wp-config.php ]
 then
   # Create the config file.
-  cp wp-config-sample.php wp-config.php
+  cp -p wp-config-sample.php wp-config.php
 
   # Fill in DB settings according to the database env variables.
   DB_HOST="$(echo $DATABASE_PORT | sed -e 's|.*://\(.*\):\(.*\)|\1|')"
