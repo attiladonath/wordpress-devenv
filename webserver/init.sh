@@ -1,8 +1,8 @@
 #!/bin/sh
 
+# Create the config file if it doesn't exist.
 if [ ! -f wp-config.php ]
 then
-  # Create the config file.
   cp -p wp-config-sample.php wp-config.php
 
   # Fill in DB settings according to the database env variables.
@@ -22,12 +22,18 @@ then
     LINE_REPLACEMENT=$(echo $LINE | sed "s/$PASSPHRASE_PLACEHOLDER/$SALT/g")
     sed -i "s/$LINE/$LINE_REPLACEMENT/g" wp-config.php
   done
+fi
 
-  # Create 'uploads' directory.
+# Create 'uploads' directory  if it doesn't exist.
+if [ ! -d wp-content/uploads ]
+then
   mkdir -m 777 wp-content/uploads
   chown --reference=wp-config.php wp-content/uploads
+fi
 
-  # Create .gitignore file
+# Create .gitignore file with defaults if it doesn't exist.
+if [ ! -f .gitignore ]
+then
   cat <<EOT >> .gitignore
 wp-config.php
 wp-content/uploads
